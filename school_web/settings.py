@@ -11,10 +11,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-ny6+ig-gx2y-$n9nfbc2u44vv#vu9$i$7jb8ktj2^j&ghn4cvv'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*'
+    'the-hand-2022.herokuapp.com'
 ]
 
 
@@ -107,10 +107,6 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'staticfiles'
-# ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
