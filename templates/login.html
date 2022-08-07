@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>The Hand | Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>The Hand | Login</title>
+	    <link rel="stylesheet" href="{% static 'css/login-main.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+	<div class="position-absolute" style="left: 1%; top: 1%;">
+		<a href="{% url 'home' %}">
+			<!-- <img src="https://img.icons8.com/offices/30/000000/home.png"/> -->
+		</a>
+	</div>
+	<div class="body d-flex align-content-center">
+		<div class="container d-flex justify-content-center">
+			<div class="card p-5">
+				<form method="POST">
+					{% csrf_token %}
+					
+					{% for error in messages %}
+						<div class="alert alert-info">
+							<p class="" style="font-size: 15px;">{{ error|escape }}</p>
+						</div>
+					{% endfor %}
+
+					<h2 class="text-warning my-2">Sign in</h2>
+					<hr>
+					<div class="username my-2">
+						<input type="username" class="form-control" placeholder="Username" name="username">
+					</div>
+					<div class="password my-2">
+						<input type="password" class="form-control" placeholder="Password" name="password">
+					</div>
+
+					<p><a href="{% url 'forgot-password' %}" class="text-decoration-none">Forgot Password?</a></p>
+					<button type="submit" name="login" class="btn btn-outline-warning">Sign In</button>
+					<hr>
+					<div class="d-flex">
+						<p><a href="{% url 'registration' %}" class="text-decoration-none text-center">Don't have an a account?</a></p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

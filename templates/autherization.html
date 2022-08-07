@@ -1,0 +1,45 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Hand | Autherization</title>
+    <link rel="stylesheet" href="{% static 'css/autherization.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="p-3">
+
+    <table class="table table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Username</th>
+            <th scope="col">Donation Card</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Autherization</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+        {% for x in cards %}
+          <tr class="text-center">
+            <td>{{x.user.username}}</td>
+            <td>{{x.card.title}}</td>
+            <td>{{x.amount}}₹</td>
+            <td class="d-flex justify-content-center">
+                <a class="btn btn-warning mx-1 btn-sm" href="{% url 'donation_autherized' x.card.id x.id %}">Accept</a>
+                <a class="btn btn-warning mx-1 btn-sm" href="{% url 'donation_not_autherized' x.id %}">Decline</a>
+            </td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+</body>
+</html>

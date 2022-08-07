@@ -1,0 +1,67 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Hand | Donate Cards</title>
+    <link rel="stylesheet" href="{% static 'css/donation_cards_page_style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="p-3">
+    <div class="container mt-5">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    <p>{{message}}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h1>Donation <span class="text-warning">Cards</span></h1>
+        <hr>
+    </div>
+    <div class="container my-2">
+        <div class="row">
+
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <section id='donation-card'>
+
+                        {% for x, y in objects_list %}
+                        <div class="d-flex flex-column my-5 donation-card-item">
+                            <h2>{{x.title}}</h2>
+                            <p>{{ x.desc|slice:255 }}</p>
+                            <p class="amount lead mx-1">{{ y }}₹</p>
+                            <div class="btns d-flex" style="width: fit-content;">
+                                <div class="justify-content-start">
+                                    <a href="{% url 'donated_successful_page' x.id %}" class="btn btn-warning px-4 m-1" style="width: fit-content;">Donate</a>
+                                    <a href="{% url 'donated-people-for-card' x.id %}" class="btn btn-warning px-4 m-1" style="width: fit-content;">Students</a>
+                                    {% if request.user.is_staff %}
+                                        <a href="{% url 'donated-people-autherization' x.id %}" class="btn btn-outline-warning px-4 m-1" style="width: fit-content;">Authorization</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+
+                    </section>
+                </div>
+
+                <div class="d-none d-lg-block d-md-block">
+                    <div class="col-lg-4 col-md-4">
+                        <section id="activity-section bg-dark">
+                           <!-- <div class="w-100">
+                                <h2>Recent Activity</h2>
+                           </div> -->
+                        </section>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

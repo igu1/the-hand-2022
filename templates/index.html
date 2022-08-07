@@ -1,0 +1,454 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>The Hand | Home</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/css-circular-prog-bar.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Raleway:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href="{% static 'css/index_style.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/css-circular-prog-bar.css' %}">
+
+</head>
+<body>
+  <div class="top_container">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              SOHSS
+            </span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link active"> Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="#about_section"> About </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#contact_section">Contact Us</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#donate_section">Donate</a>
+                </li>
+                {% if request.user.is_staff %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'client_messages' %}">Messages</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+        </nav>
+      </div>
+    </header>
+    <section class="hero_section ">
+      <div class="hero-container container">
+        <div class="hero_detail-box">
+          <h1>
+            The Hand
+          </h1>
+          <div class="d-flex flex-column">
+            <p style="margin-bottom: 20px; margin-top:50px;">
+            “If you can’t feed a hundred people, then feed just one.”
+          </p>
+            <p style="margin: 0px 10px; margin-bottom: 50px" class="text-right"> ~ Mother Teresa</p>
+          </div>
+          <div class="hero_btn-continer">
+            <a href="#donate_section" class="call_to-btn btn_white-border">
+              Donate
+            </a>
+          </div>
+        </div>
+        <div class="hero_img-container">
+          <div>
+            <img src="{% static '' %}" alt="" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- end header section -->
+
+
+  {% if request.user.is_authenticated %}
+  <div class="about-client d-flex flex-column text-center justify-content-center container my-4">
+      <h3>Hi,<span class="text-warning"> {{ request.user.username }}</span></h3>
+      <hr class="text-dark mx-4">
+      <p class="mx-4">Helping others is an act of spreading happiness around the world which in turn makes you happy. This gesture also shows humanity and kindness. When you help others in any form, you have many chances to get help when you are stuck somewhere. Make sure while helping others, your intention should be pure, and you should be sure to help others.</p>
+  </div>
+  {% endif %}
+
+
+  <div class="common_style">
+
+    <!-- about section -->
+    <section class="about_section" id="about_section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="about_img-container m-5">
+              <img src="{% static 'images/about.png' %}" alt="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="about_detail-box m-4">
+              <h3>
+                About our School
+              </h3>
+              <p>
+                Sulamussalam Oriental Higher Secondary School, Areekode, was founded in 1955 by a group of visionaries under the Oriental Scheme of education charted out by Moulana Abul Kalam Azad, India's first Minister for Educational Affairs
+              </p>
+              <div class="">
+                <a href="http://www.sohss.in/about-us.html" class="call_to-btn btn_white-border">
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- end about section -->
+
+    <!-- admission section -->
+    <section class="donation_section" id="donate_section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="admission_detail-box m-4">
+              <h3>
+                Donate
+              </h3>
+              <p>
+                Transfer the money you u wish to donate To The Given UPI ID: <span class="text-warning">testupi@testbank</span> before registering your donation
+              </p>
+              <div class="">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'donate_cards' %}" class="call_to-btn btn_white-border">
+                  Donate Cards
+                </a>
+                {% else %}
+                  <a href="{% url 'login' %}" class="text-decoration-none"><p class="text-danger">You Have To Sign In To Donate</p>{% endif %}</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="admission_img-container m-5">
+              <img src="{% static 'images/admission.png' %}" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- end donat section -->
+  </div>
+
+<!-- <section id="special_thanks">
+  div class="container text-center">
+    <h2 class="">
+      Special Thanks To <span class="text-warning">Nazha Labeed</span> 
+    </h2>
+    <div class="row">
+    <div class="container col-md-3 m-2">
+      <img class="img-thumbnail m-4" src="{% static 'images/nazha.png'%}">
+    </div>
+    <div class="container col-md-8">
+      <p class="align-content-center align-items-center">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi iusto iste error fugiat in, dolorum asperiores aspernatur aut, nemo velit eius animi pariatur esse, voluptate consequuntur facere doloremque obcaecati necessitatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis illum tempore beatae quia? Deleniti quia similique voluptatum, at, laboriosam odit facilis laborum nulla in porro aliquam cum ab illo quas.</p>
+    </div>
+  </div>
+  </div>
+</section> -->
+
+  <!-- client section -->
+  <section class="client_section layout_padding">
+
+    <h2 class="">
+      People Who Behind <span class="text-warning">"The Hand"</span> 
+    </h2>
+
+    <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              <!-- <li data-target="#carouselExampleIndicators" data-slide-to="3"></li> -->
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                  <div class="row">
+                      <div class="col-md-3">
+                        <div class="client_img-box">
+                          <img src="{% static 'images/muneeb.jpeg' %}" class="img-thumbnail" alt="">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="client_detail-box">
+                          <h5>
+                            Muneeburahman KT
+                          </h5>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+
+              <div class="carousel-item">
+                  <div class="row">
+                      <div class="col-md-3">
+                        <div class="client_img-box">
+                          <img src="{% static 'images/kamil.jpeg' %}" class="img-thumbnail" alt="">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="client_detail-box">
+                          <h5>
+                            Kamil KV
+                          </h5>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+
+              <div class="carousel-item">
+                  <div class="row">
+                      <div class="col-md-3">
+                        <div class="client_img-box">
+                          <img src="{% static 'images/naseer.jpeg' %}" class="img-thumbnail" alt="">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="client_detail-box">
+                          <h5>
+                            Abdunaseer K
+                          </h5>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+
+              <!-- <div class="carousel-item">
+                  <div class="row">
+                      <div class="col-md-3">
+                        <div class="client_img-box">
+                          <img src="{% static 'images/nazha.png' %}" class="img-thumbnail" alt="">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="client_detail-box">
+                          <h5>
+                            Nazha Labeed
+                          </h5>
+                          <p>
+                            Thank you for giving me your time. I believe a person’s most precious gift that can give to anyone is her time because you can never take it back. And you always give me that. I’m deeply thankful for it.
+
+                          Thank you for making ordinary moments extraordinary. A simple day can become special because of you. A short stop at a coffee or tea shop will always bring out the best stories. You never fail to make me laugh. There’s never a dull moment with you.
+
+                          Thank you for meeting me halfway. With our age gap, we surely have different interests and point of view. But you always exert extra effort for everything to become easier for me. My Bestie For All Time :D
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+
+            </div>
+          </div>
+    </div> -->
+
+  </section>
+  <!-- end client section -->
+
+
+    <!-- contact section -->
+    <section class="contact_section my-4" id="contact_section">
+
+        <div class="container">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="d-flex justify-content-center d-md-block">
+                <h2>
+                  Contact Us
+                </h2>
+              </div>
+              <form method="POST">
+                {% csrf_token %}
+                <div class="contact_form-container">
+                  <div>
+                    <div>
+                      <input type="text" name="name" placeholder="Name">
+                    </div>
+                    <div>
+                      <input type="email" name="email" placeholder="Email">
+                    </div>
+                    <div>
+                      <input type="number" name="phone_number" placeholder="Phone Number">
+                    </div>
+                    <div class="mt-5">
+                      <textarea name="message" placeholder="Message"></textarea>
+                    </div>
+                    <div class="mt-5">
+                      <button type="submit">
+                        send
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+
+              </form>
+            </div>
+            <div class="col-md-6 d-none d-lg-block d-md-block">
+              <div class="contact_img-box">
+                <img src="{% static 'images/students.jpg' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end contact section -->
+
+
+      <section class="info_section layout_padding-top">
+        <div class="info_logo-box">
+          <h2>
+              The Hand
+          </h2>
+        </div>
+          <div class="container layout_padding2">
+            <div class="row">
+              <div class="col-md-4 text-center">
+                <h5>
+                    About Page
+                </h5>
+                <hr>
+               <p class="mx-4 my-2">
+                  dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quisdotempor incididunt
+               </p>
+              </div>
+              <div class="col-md-4 text-center">
+                <h5 class="mt-2">
+                    Useful Link
+                </h5>
+                  <hr>
+                <ul>
+                  <li>
+                    <a href="#donate_section">
+                        Donate
+                    </a>
+                  </li>
+                  <li>
+                   <a href="#about_section">
+                      About School
+                   </a>
+                  </li>
+                  <li>
+                    <a href="#contact_section">
+                        Contact us
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-4 text-center">
+                <h5>
+                    Contact Us
+                </h5>
+                <hr>
+                <div class="text-center">
+                <p class="my-2">
+                 <span><img src="https://img.icons8.com/fluency/24/000000/marker.png"/></span> Sullamussalam Oriental Higher secondary school, Areekode, Malappuram
+                </p>
+                <p class="my-2">
+                  <span><img src="https://img.icons8.com/fluency/24/000000/phone-disconnected.png"/> 0483-2853709</span>
+                </p>
+                <p class="my-2">
+                  <span><img src="https://img.icons8.com/fluency/24/000000/mail.png"/>  sullamussalamhss@gmail.com                  </span>
+                </p>
+
+
+              </div>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="container">
+              <div class="social_container">
+
+                  <div class="social-box">
+                    <a href="">
+                      <img src="" alt="">
+                    </a>
+                    <a href="">
+                      <img src="" alt="">
+                    </a>
+                    <a href="">
+                      <img src="" alt="">
+                    </a>
+                    <a href="">
+                      <img src="" alt="">
+                    </a>
+                  </div>
+                </div>
+          </div>
+        </section>
+      <!-- footer section -->
+    <section class="container-fluid footer_section">
+      <p>
+        Copyright &copy; 2022 All Rights Reserved By
+        <a href="https://ez-portfolio.ml/">Eesa Zakariyya</a>
+      </p>
+    </section>
+    <!-- footer section -->
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+ </body>
+</html>
