@@ -29,27 +29,54 @@
         <div class="row">
 
                 <div class="col-lg-8 col-md-8 col-sm-12">
+                    {% if objects_list %}
                     <section id='donation-card'>
+                            {% for x, y in objects_list %}
+                            <div class="d-flex flex-column my-5 donation-card-item">
+                                <h2>{{x.title}}</h2>
+                                <p>{{ x.desc|slice:255 }}</p>
+                                <p class="amount lead mx-1">{{ y }}₹</p>
+                                <div class="btns d-flex" style="width: fit-content;">
+                                    <div class="justify-content-start">
+                                        <a href="{% url 'donated_successful_page' x.id %}" data-toggle="modal" data-target="#myModal" class="btn btn-warning px-4 m-1" style="width: fit-content;">Donate</a>
+                                        <a href="{% url 'donated-people-for-card' x.id %}" class="btn btn-warning px-4 m-1" style="width: fit-content;">Students</a>
+                                        {% if request.user.is_staff %}
+                                            <a href="{% url 'donated-people-autherization' x.id %}" class="btn btn-outline-warning px-4 m-1" style="width: fit-content;">Authorization</a>
+                                        {% endif %}
+                                    </div>
+                                    <!-- Modal -->
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                    <h2>Enter The Amount!</h2>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <input class="form-control" type="text" name="donation_amount" placeholder="Amount..">
+                                                <input class="form-control hidden d-none" type="text" name="card_no" value="{{x.id}}">
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <input type="submit" class="btn-outline-warning btn" data-dismiss="model">
+                                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </form>
 
-                        {% for x, y in objects_list %}
-                        <div class="d-flex flex-column my-5 donation-card-item">
-                            <h2>{{x.title}}</h2>
-                            <p>{{ x.desc|slice:255 }}</p>
-                            <p class="amount lead mx-1">{{ y }}₹</p>
-                            <div class="btns d-flex" style="width: fit-content;">
-                                <div class="justify-content-start">
-                                    <a href="{% url 'donated_successful_page' x.id %}" class="btn btn-warning px-4 m-1" style="width: fit-content;">Donate</a>
-                                    <a href="{% url 'donated-people-for-card' x.id %}" class="btn btn-warning px-4 m-1" style="width: fit-content;">Students</a>
-                                    {% if request.user.is_staff %}
-                                        <a href="{% url 'donated-people-autherization' x.id %}" class="btn btn-outline-warning px-4 m-1" style="width: fit-content;">Authorization</a>
-                                    {% endif %}
                                 </div>
                             </div>
-                        </div>
-                        <hr>
-                        {% endfor %}
-
+                            <hr>
+                            {% endfor %}
                     </section>
+                     {% else %}
+                        <div class="">
+                            <h1 class="text-start">Nothing Here</h1>
+                            </div>
+                    {% endif %}
                 </div>
 
                 <div class="d-none d-lg-block d-md-block">

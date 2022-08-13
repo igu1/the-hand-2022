@@ -45,6 +45,8 @@ def donate_cards(request):
         for y in DonatedPeople.objects.filter(card=x):
             total_prize += y.amount
         total.append(total_prize)
+    if request.method == 'POST':
+        donation_successfull(request, request.POST.get('card_no'))
     context = {
         'cards': cards,
         'objects_list': zip(cards, total)
@@ -60,13 +62,13 @@ def donation_successfull(request, pk):
         if str(x.user) == str(request.user.username):
             exist_in_auther = True
             people = DonationAutherization.objects.get(user=request.user, card=donation_card)
-            people.amount += 20.0
+            people.amount += request.POST.get('donation_amount')
             people.save()
             messages.add_message(request, messages.INFO,
                                  'Thank You! Your Donation Will Be Listed After Admin Confirmation.')
             return redirect('donate_cards')
     if not exist_in_auther:
-        DonationAutherization.objects.create(card=donation_card, user=request.user, amount=20.0)
+        DonationAutherization.objects.create(card=donation_card, user=request.user, amount=request.POST.get('donation_amount'))
         messages.add_message(request, messages.INFO,
                              'Thank You! Your Donation Will Be Listed After Admin Confirmation.')
 
@@ -129,7 +131,7 @@ def donation_autherized(request, pk, card_num):
                                                   user=DonationAutherization.objects.get(id=card_num).user).delete()
                 return redirect('donate_cards')
         if not exist_in_auther:
-            DonatedPeople.objects.create(card=donation_card, user=donated_user, amount=20.0)
+            DonatedPeople.objects.create(card=donation_card, user=donated_user, amount=DonationAutherization.objects.get(id=card_num, user=donated_user).amount)
         DonationAutherization.objects.get(card=donation_card,
                                           user=DonationAutherization.objects.get(id=card_num).user).delete()
         return redirect('donate_cards')

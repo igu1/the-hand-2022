@@ -30,13 +30,17 @@
                   </thead>
                   <tbody>
 
+                  {% if peoples %}
                     {% for people in peoples %}
-                    <tr>
-                      <td>{{people.user}}</td>
-                      <td>{{people.amount}}₹</td>
-                      <td>{{people.added|date:'Y-m-d'}}</td>
-                    </tr>
-                  {% endfor %}
+                        <tr>
+                          <td>{{people.user}}</td>
+                          <td>{{people.amount}}₹</td>
+                          <td>{{people.added|date:'Y-m-d'}}</td>
+                        </tr>
+                    {% endfor %}
+                  {% else %}
+                    <h1>No Donation Found</h1>
+                  {% endif %}
                   </tbody>
                 </table>
                 </div>
