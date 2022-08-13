@@ -11,12 +11,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-ny6+ig-gx2y-$n9nfbc2u44vv#vu9$i$7jb8ktj2^j&ghn4cvv'
 
-DEBUG = False
+DEBUG = True
+
 
 ALLOWED_HOSTS = [
-    'the-hand-2022.herokuapp.com',
-    'localhost',
-    '127.0.0.1'
+    ""
 ]
 
 
@@ -108,9 +107,19 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+
+if DEBUG:
+
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+else:
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
