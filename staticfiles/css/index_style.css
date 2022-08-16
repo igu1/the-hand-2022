@@ -1,10 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
 html{
     scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: #fef8f8;
 }
 
@@ -213,15 +214,18 @@ a:focus {
   color: #fefeff;
   font-weight: 600;
   width: 70%;
+
 }
-
-
 
 .hero_detail-box p {
   font-size: 1.5rem;
 }
 
-
+.the-hand{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: red;
+}
 /* end hero section */
 
 /* common style for some sections */

@@ -15,7 +15,9 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = [
-    "*"
+    '127.0.0.1',
+    '0.tcp.in.ngrok.io',
+    'the-hand-2022.herokuapp.com'
 ]
 
 
